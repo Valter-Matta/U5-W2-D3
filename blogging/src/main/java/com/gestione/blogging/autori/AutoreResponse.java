@@ -1,26 +1,23 @@
 package com.gestione.blogging.autori;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.gestione.blogging.post.Post;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table (name = "autori")
-public class Autore {
-	@Id
-	@GeneratedValue (strategy = GenerationType.SEQUENCE)
+public class AutoreResponse {
 	private Long id;
 	private String nome;
 	private String cognome;
 	private String email;
 	private LocalDate dataNascita;
-	private String avatar = "https://ui-avatars.com/api/?name=" + nome + cognome;
-
 
 }

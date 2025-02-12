@@ -3,6 +3,7 @@ package com.gestione.blogging.post;
 import com.gestione.blogging.autori.Autore;
 import com.gestione.blogging.autori.AutoreRequest;
 import com.gestione.blogging.response.GeneralResponse;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -31,11 +32,12 @@ public class PostService {
 
 	//POST /blogPosts => crea un nuovo blog post
 	public GeneralResponse save (PostRequest request) {
-		Post autore = new Post();
-		BeanUtils.copyProperties(request, autore);
-		repository.save(autore);
+
+		Post post = postFromPostRequest(request);
+
 		GeneralResponse resp = new GeneralResponse();
-		BeanUtils.copyProperties(autore, resp);
+		BeanUtils.copyProperties(post, resp);
+		repository.save(post);
 		return resp;
 	}
 
@@ -51,5 +53,11 @@ public class PostService {
 	public void delete (Long id) {
 		Post autore = findById(id);
 		repository.deleteById(id);
+	}
+
+	public Post postFromPostRequest (PostRequest request) {
+		Post post = new Post();
+		BeanUtils.copyProperties(request, post);
+		return post;
 	}
 }

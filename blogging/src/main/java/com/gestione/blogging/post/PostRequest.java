@@ -14,4 +14,5 @@ public class PostRequest {
 	private String title;
 	private String content;
 	private int readTime;
+	private Long autoreId;
 }
